@@ -6,4 +6,6 @@ module com.example.kiwquiz {
 
     opens com.example.kiwquiz to javafx.fxml;
     exports com.example.kiwquiz;
+    exports com.example.kiwquiz.controllers;
+    opens com.example.kiwquiz.controllers to javafx.fxml;
 }
