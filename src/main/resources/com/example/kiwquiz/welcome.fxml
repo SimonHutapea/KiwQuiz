@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.WelcomeController">
+    <children>
+        <VBox alignment="CENTER" spacing="20.0" layoutX="100.0" layoutY="50.0" prefWidth="600.0" prefHeight="400.0">
+            <Label text="Selamat Datang di KiwQuiz" style="-fx-font-size: 36px; -fx-font-weight: bold;" />
+            <HBox spacing="50.0" alignment="CENTER">
+                <Button text="Masuk (Login)" onAction="#handleLogin" prefWidth="150" prefHeight="50"/>
+                <Button text="Daftar (Register)" onAction="#handleRegister" prefWidth="150" prefHeight="50"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
