@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.RegisterController">
+    <children>
+        <VBox alignment="CENTER" spacing="15.0" layoutX="100.0" layoutY="50.0" prefWidth="600.0" prefHeight="400.0">
+            <Label text="Daftar Akun" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+
+            <TextField fx:id="usernameField" promptText="Nama Pengguna" prefWidth="250"/>
+            <TextField fx:id="emailField" promptText="Email" prefWidth="250"/>
+            <PasswordField fx:id="passwordField" promptText="Password" prefWidth="250"/>
+            <PasswordField fx:id="confirmPasswordField" promptText="Konfirmasi Password" prefWidth="250"/>
+
+            <Button text="Daftar" onAction="#handleRegister" prefWidth="100"/>
+
+            <Label fx:id="errorLabel" textFill="red"/>
+        </VBox>
+    </children>
+</AnchorPane>
