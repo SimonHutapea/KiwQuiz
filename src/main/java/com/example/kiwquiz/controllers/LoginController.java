@@ -23,23 +23,32 @@ public class LoginController {
 
     @FXML
     void handleLogin(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Username dan Password tidak boleh kosong!");
+            return;
+        }
 
         try (Connection conn = Database.getConnection()) {
-            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM account WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
-            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                int id = rs.getInt("id");
-                int score = rs.getInt("score");
-                Session.setAccount(new Account(id, username, password, score));
-                MainApp.setRoot("mainpage.fxml");
+                String storedPassword = rs.getString("password");
+                if (password.equals(storedPassword)) { // Gunakan hash check jika sudah pakai hashing
+                    int id = rs.getInt("id");
+                    int score = rs.getInt("score");
+                    Session.setAccount(new Account(id, username, password, score));
+                    MainApp.setRoot("mainpage.fxml");
+                } else {
+                    errorLabel.setText("Password salah!");
+                }
             } else {
-                errorLabel.setText("Username atau Password salah!");
+                errorLabel.setText("Username tidak ditemukan!");
             }
         } catch (Exception e) {
             e.printStackTrace();

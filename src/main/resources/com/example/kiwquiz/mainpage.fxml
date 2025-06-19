@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.MainPageController">
+    <children>
+        <BorderPane prefWidth="600.0" prefHeight="400.0">
+            <top>
+                <HBox padding="10.0" alignment="CENTER" spacing="10.0">
+                    <Label text="Nama: " />
+                    <Label fx:id="nameLabel" text="UserName" />
+                    <Button text="Edit" onAction="#handleEditProfile"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <Label text="Skor Tertinggi: " />
+                    <Label fx:id="scoreLabel" text="0" />
+                </HBox>
+            </top>
+            <center>
+                <Label text="KiwQuiz" style="-fx-font-size: 48px; -fx-font-weight: bold;" />
+            </center>
+            <bottom>
+                <HBox padding="10.0" spacing="20.0" alignment="CENTER">
+                    <Button text="Leaderboard" onAction="#handleLeaderboard" prefWidth="150"/>
+                    <Button text="Mulai Quiz" onAction="#handleStartQuiz" prefWidth="150"/>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>

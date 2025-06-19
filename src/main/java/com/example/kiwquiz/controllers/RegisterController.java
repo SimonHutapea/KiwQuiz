@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class RegisterController {
 
@@ -24,9 +25,14 @@ public class RegisterController {
 
     @FXML
     void handleRegister(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        String confirmPassword = confirmPasswordField.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Username dan Password tidak boleh kosong!");
+            return;
+        }
 
         if (!password.equals(confirmPassword)) {
             errorLabel.setText("Password tidak cocok!");
@@ -34,15 +40,28 @@ public class RegisterController {
         }
 
         try (Connection conn = Database.getConnection()) {
-            String sql = "INSERT INTO account (id, username, password, score) VALUES (NULL, ?, ?, 0)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            stmt.executeUpdate();
+            // Cek apakah username sudah ada
+            String checkSql = "SELECT * FROM account WHERE username = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setString(1, username);
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                errorLabel.setText("Username sudah digunakan!");
+                return;
+            }
+
+            // Insert akun baru
+            String insertSql = "INSERT INTO account (username, password, score) VALUES (?, ?, 0)";
+            PreparedStatement insertStmt = conn.prepareStatement(insertSql);
+            insertStmt.setString(1, username);
+            insertStmt.setString(2, password);
+            insertStmt.executeUpdate();
+
             MainApp.setRoot("mainpage.fxml");
         } catch (Exception e) {
             e.printStackTrace();
-            errorLabel.setText("Gagal register (username sudah ada?)");
+            errorLabel.setText("Gagal register.");
         }
     }
 
