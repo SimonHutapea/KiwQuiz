@@ -7,6 +7,6 @@ public class CalculusQuestion extends Question {
 
     @Override
     public String getCategory() {
-        return "Calculus";
+        return "calculus";
     }
 }
