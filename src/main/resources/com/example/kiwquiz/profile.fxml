@@ -3,24 +3,105 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.ProfileController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.ProfileController"
+            style="-fx-background-color: #1e1e2f;">
     <children>
-        <VBox alignment="CENTER" spacing="15.0" layoutX="100.0" layoutY="50.0" prefWidth="980.0" prefHeight="640.0">
-            <Label text="Profil Pengguna" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+        <StackPane prefWidth="980.0" prefHeight="640.0"
+                   AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <VBox alignment="TOP_CENTER" spacing="30.0" maxWidth="600">
+                <padding>
+                    <Insets top="40" bottom="20" left="20" right="20"/>
+                </padding>
 
-            <Label text="Nama Saat Ini:" />
-            <Label fx:id="usernameLabel" text="UserName" />
+                <Label text="Profil Pengguna">
+                    <font>
+                        <Font size="32.0" />
+                    </font>
+                    <style>
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                        -fx-effect: dropshadow(gaussian, #00ffc8, 10, 0.3, 0, 0);
+                    </style>
+                </Label>
 
-            <TextField fx:id="newUsernameField" promptText="Nama Baru" prefWidth="250"/>
-            <Button text="Ganti Nama" onAction="#handleChangeUsername" prefWidth="120"/>
+                <VBox alignment="CENTER" spacing="8.0">
+                    <Label text="Nama Saat Ini:" style="-fx-text-fill: white; -fx-font-size: 17px" />
+                    <Label fx:id="usernameLabel" text="UserName" style="-fx-text-fill: #00ffd5; -fx-font-size: 17px;" />
+                </VBox>
 
-            <PasswordField fx:id="newPasswordField" promptText="Password Baru" prefWidth="250"/>
-            <Button text="Ganti Password" onAction="#handleChangePassword" prefWidth="120"/>
+                <!-- Sejajar Ganti Nama & Ganti Password -->
+                <HBox spacing="30.0" alignment="CENTER">
+                    <!-- Ganti Nama -->
+                    <VBox spacing="10.0" alignment="CENTER">
+                        <TextField fx:id="newUsernameField" promptText="Nama Baru" maxWidth="250">
+                            <style>
+                                -fx-background-color: #2c2f4a;
+                                -fx-text-fill: white;
+                                -fx-prompt-text-fill: #bbbbbb;
+                                -fx-background-radius: 8;
+                                -fx-border-color: #555;
+                                -fx-border-radius: 8;
+                                -fx-padding: 10 12;
+                            </style>
+                        </TextField>
+                        <Button text="Ganti Nama" onAction="#handleChangeUsername" prefWidth="150" prefHeight="35">
+                            <style>
+                                -fx-background-color: linear-gradient(to right, #2196f3, #00bcd4);
+                                -fx-text-fill: white;
+                                -fx-font-weight: bold;
+                                -fx-background-radius: 10;
+                                -fx-font-size: 17px;
+                            </style>
+                        </Button>
+                    </VBox>
 
-            <Button text="Logout" onAction="#handleLogout" prefWidth="100"/>
+                    <!-- Ganti Password -->
+                    <VBox spacing="10.0" alignment="CENTER">
+                        <PasswordField fx:id="newPasswordField" promptText="Password Baru" maxWidth="250">
+                            <style>
+                                -fx-background-color: #2c2f4a;
+                                -fx-text-fill: white;
+                                -fx-prompt-text-fill: #bbbbbb;
+                                -fx-background-radius: 8;
+                                -fx-border-color: #555;
+                                -fx-border-radius: 8;
+                                -fx-padding: 10 12;
+                            </style>
+                        </PasswordField>
+                        <Button text="Ganti Password" onAction="#handleChangePassword" prefWidth="150" prefHeight="35">
+                            <style>
+                                -fx-background-color: linear-gradient(to right, #00e676, #00c853);
+                                -fx-text-fill: white;
+                                -fx-font-weight: bold;
+                                -fx-background-radius: 10;
+                                -fx-font-size: 17px;
+                            </style>
+                        </Button>
+                    </VBox>
+                </HBox>
 
-            <Label fx:id="messageLabel" textFill="green"/>
-        </VBox>
+                <!-- Pesan -->
+                <Label fx:id="messageLabel" text="" alignment="CENTER">
+                    <style>
+                        -fx-text-fill: red;
+                        -fx-font-size: 14px;
+                    </style>
+                </Label>
+
+                <!-- Tombol Logout di bawah tengah -->
+                <Button text="Logout" onAction="#handleLogout" prefWidth="140" prefHeight="40">
+                    <style>
+                        -fx-background-color: #ff5252;
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                        -fx-background-radius: 10;
+                        -fx-font-size: 17px;
+                    </style>
+                </Button>
+            </VBox>
+        </StackPane>
     </children>
 </AnchorPane>

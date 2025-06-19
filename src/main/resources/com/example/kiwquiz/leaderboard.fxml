@@ -3,21 +3,54 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.LeaderboardController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.LeaderboardController"
+            style="-fx-background-color: #1e1e2f;">
     <children>
-        <VBox alignment="CENTER" spacing="15.0" layoutX="50.0" layoutY="30.0" prefWidth="980.0" prefHeight="640.0">
+        <StackPane prefWidth="980.0" prefHeight="640.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <VBox alignment="CENTER" spacing="20.0" maxWidth="600">
+                <padding>
+                    <Insets top="40" bottom="40" left="20" right="20"/>
+                </padding>
 
-            <Label text="Leaderboard" style="-fx-font-size: 32px; -fx-font-weight: bold;" />
+                <Label text="Leaderboard">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <style>
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                        -fx-effect: dropshadow(gaussian, #00ffc8, 10, 0.3, 0, 0);
+                    </style>
+                </Label>
 
-            <TableView fx:id="leaderboardTable" prefWidth="500.0">
-                <columns>
-                    <TableColumn fx:id="usernameColumn" text="Nama" prefWidth="200.0"/>
-                    <TableColumn fx:id="scoreColumn" text="Skor" prefWidth="200.0"/>
-                </columns>
-            </TableView>
+                <TableView fx:id="leaderboardTable" prefWidth="500.0" maxHeight="400.0">
+                    <columns>
+                        <TableColumn fx:id="usernameColumn" text="Nama" prefWidth="250.0" />
+                        <TableColumn fx:id="scoreColumn" text="Skor" prefWidth="250.0" />
+                    </columns>
+                    <style>
+                        -fx-background-color: #2c2f4a;
+                        -fx-text-background-color: white;
+                        -fx-text-fill: white;
+                        -fx-border-color: #444;
+                        -fx-border-radius: 6;
+                        -fx-background-radius: 6;
+                        -fx-font-size: 14px;
+                    </style>
+                </TableView>
 
-            <Button text="Tutup" onAction="#handleClose" prefWidth="100"/>
-        </VBox>
+                <Button text="Tutup" onAction="#handleClose" prefWidth="120" prefHeight="40">
+                    <style>
+                        -fx-background-color: #ff5252;
+                        -fx-text-fill: white;
+                        -fx-font-weight: bold;
+                        -fx-background-radius: 10;
+                    </style>
+                </Button>
+            </VBox>
+        </StackPane>
     </children>
 </AnchorPane>
