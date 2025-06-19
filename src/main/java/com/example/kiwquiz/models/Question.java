@@ -33,7 +33,7 @@ public class Question {
     // Polymorphism (Overloading)
     public boolean checkAnswer(String answer, boolean showHint) {
         if (showHint) {
-            System.out.println("Hint: Jawaban benar dimulai dengan huruf " + correctAnswer.charAt(0));
+            System.out.println("Hint: Jawaban benar adalah " + correctAnswer.charAt(0));
         }
         return checkAnswer(answer);
     }

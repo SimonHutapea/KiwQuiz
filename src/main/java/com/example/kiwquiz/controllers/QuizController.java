@@ -4,8 +4,12 @@ import com.example.kiwquiz.Database;
 import com.example.kiwquiz.MainApp;
 import com.example.kiwquiz.models.Account;
 import com.example.kiwquiz.models.Question;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,6 +26,9 @@ public class QuizController {
     private Label questionLabel;
 
     @FXML
+    private Label stageLabel;
+
+    @FXML
     private Label timerLabel;
 
     @FXML
@@ -29,6 +36,8 @@ public class QuizController {
 
     @FXML
     private ToggleGroup optionsGroup;
+
+    private int stage = 1;
 
     private Timeline timeline;
     private int timeRemaining = 60;
@@ -50,6 +59,12 @@ public class QuizController {
 
     @FXML
     public void initialize() {
+        optionsGroup = new ToggleGroup();
+        optionA.setToggleGroup(optionsGroup);
+        optionB.setToggleGroup(optionsGroup);
+        optionC.setToggleGroup(optionsGroup);
+        optionD.setToggleGroup(optionsGroup);
+        optionE.setToggleGroup(optionsGroup);
         loadQuestions();
         showQuestion();
         startTimer();
@@ -92,6 +107,8 @@ public class QuizController {
             resetTimer();
         } else {
             currentTableIndex++;
+            stage++;
+            stageLabel.setText("" + stage);
             if (currentTableIndex < tableNames.length) {
                 currentQuestionIndex = 0;
                 loadQuestions();
@@ -105,8 +122,8 @@ public class QuizController {
     private void startTimer() {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             timeRemaining--;
-            timerLabel.setText("Waktu: " + timeRemaining + " detik");
-            if (timeRemaining <= 0) {
+            timerLabel.setText(timeRemaining + " detik");
+            if (timeRemaining == 0) {
                 kosong++;
                 nextQuestion();
             }
@@ -115,9 +132,10 @@ public class QuizController {
         timeline.play();
     }
 
+
     private void resetTimer() {
         timeRemaining = 60;
-        timerLabel.setText("Waktu: " + timeRemaining + " detik");
+        timerLabel.setText(timeRemaining + " detik");
     }
 
     @FXML
@@ -131,19 +149,19 @@ public class QuizController {
 
         if (selected == null) {
             kosong++;
-        } else {
-            String correct = questions.get(currentQuestionIndex).getCorrectAnswer();
-            if (selected.equals(correct)) {
-                benar++;
-            } else {
-                salah++;
-            }
         }
+
+        boolean correct = questions.get(currentQuestionIndex).checkAnswer(selected, true);
+        if (correct) {
+            benar++;
+        } else {
+            salah++;
+        }
+
         nextQuestion();
     }
 
     private void nextQuestion() {
-        timeline.stop();
         currentQuestionIndex++;
         showQuestion();
     }
