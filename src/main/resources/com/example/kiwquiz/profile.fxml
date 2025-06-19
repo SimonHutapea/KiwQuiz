@@ -6,13 +6,13 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.ProfileController">
     <children>
-        <VBox alignment="CENTER" spacing="15.0" layoutX="100.0" layoutY="50.0" prefWidth="600.0" prefHeight="400.0">
+        <VBox alignment="CENTER" spacing="15.0" layoutX="100.0" layoutY="50.0" prefWidth="980.0" prefHeight="640.0">
             <Label text="Profil Pengguna" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
 
             <Label text="Nama Saat Ini:" />
-            <Label fx:id="currentNameLabel" text="UserName" />
+            <Label fx:id="usernameLabel" text="UserName" />
 
-            <TextField fx:id="newNameField" promptText="Nama Baru" prefWidth="250"/>
+            <TextField fx:id="newUsernameField" promptText="Nama Baru" prefWidth="250"/>
             <Button text="Ganti Nama" onAction="#handleChangeUsername" prefWidth="120"/>
 
             <PasswordField fx:id="newPasswordField" promptText="Password Baru" prefWidth="250"/>
@@ -20,7 +20,7 @@
 
             <Button text="Logout" onAction="#handleLogout" prefWidth="100"/>
 
-            <Label fx:id="statusLabel" textFill="green"/>
+            <Label fx:id="messageLabel" textFill="green"/>
         </VBox>
     </children>
 </AnchorPane>

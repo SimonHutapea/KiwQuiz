@@ -2,6 +2,7 @@ package com.example.kiwquiz.controllers;
 
 import com.example.kiwquiz.Database;
 import com.example.kiwquiz.MainApp;
+import com.example.kiwquiz.models.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -58,7 +59,18 @@ public class RegisterController {
             insertStmt.setString(2, password);
             insertStmt.executeUpdate();
 
-            MainApp.setRoot("mainpage.fxml");
+            String sql = "SELECT * FROM account WHERE username = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rc = stmt.executeQuery();
+
+            if (rc.next()) {
+                int id = rc.getInt("id");
+                int score = 0;
+                Session.setAccount(new Account(id, username, password, score));
+                MainApp.setRoot("mainpage.fxml");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             errorLabel.setText("Gagal register.");

@@ -29,7 +29,7 @@ public class MainPageController {
         Account acc = Session.getAccount();
         if (acc != null) {
             usernameLabel.setText(acc.getUsername());
-            scoreLabel.setText("Skor Tertinggi: " + acc.getScore());
+            scoreLabel.setText("" + acc.getScore());
         }
     }
 

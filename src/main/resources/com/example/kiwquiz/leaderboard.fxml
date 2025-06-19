@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.kiwquiz.controllers.LeaderboardController">
+    <children>
+        <VBox alignment="CENTER" spacing="15.0" layoutX="50.0" layoutY="30.0" prefWidth="980.0" prefHeight="640.0">
+
+            <Label text="Leaderboard" style="-fx-font-size: 32px; -fx-font-weight: bold;" />
+
+            <TableView fx:id="leaderboardTable" prefWidth="500.0">
+                <columns>
+                    <TableColumn fx:id="usernameColumn" text="Nama" prefWidth="200.0"/>
+                    <TableColumn fx:id="scoreColumn" text="Skor" prefWidth="200.0"/>
+                </columns>
+            </TableView>
+
+            <Button text="Tutup" onAction="#handleClose" prefWidth="100"/>
+        </VBox>
+    </children>
+</AnchorPane>
