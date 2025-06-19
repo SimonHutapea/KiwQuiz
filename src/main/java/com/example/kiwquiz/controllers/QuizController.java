@@ -4,12 +4,13 @@ import com.example.kiwquiz.Database;
 import com.example.kiwquiz.MainApp;
 import com.example.kiwquiz.models.Account;
 import com.example.kiwquiz.models.Question;
-import javafx.animation.Animation;
+import com.example.kiwquiz.models.CalculusQuestion;
+import com.example.kiwquiz.models.ComputerNetworkQuestion;
+import com.example.kiwquiz.models.DataStructureAndAlgorithmQuestion;
+import com.example.kiwquiz.models.IntroductionToComputerScienceQuestion;
+import com.example.kiwquiz.models.OperatingSystemQuestion;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -48,11 +49,11 @@ public class QuizController {
     private int benar = 0, salah = 0, kosong = 0;
 
     private String[] tableNames = {
-            "calculus",
-            "computer_network",
-            "data_structure_and_algorithm",
-            "introduction_to_computer_science",
-            "operating_system"
+            CalculusQuestion.CATEGORY_NAME,
+            ComputerNetworkQuestion.CATEGORY_NAME,
+            DataStructureAndAlgorithmQuestion.CATEGORY_NAME,
+            IntroductionToComputerScienceQuestion.CATEGORY_NAME,
+            OperatingSystemQuestion.CATEGORY_NAME
     };
 
     private int currentTableIndex = 0;
@@ -123,7 +124,7 @@ public class QuizController {
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             timeRemaining--;
             timerLabel.setText(timeRemaining + " detik");
-            if (timeRemaining == 0) {
+            if (timeRemaining <= 0) {
                 kosong++;
                 nextQuestion();
             }
@@ -173,20 +174,38 @@ public class QuizController {
         showLeaderboard();
     }
 
-    private void saveScore(int score) {
+    private void saveScore(int newScore) {
         Account acc = Session.getAccount();
         if (acc != null) {
             try (Connection conn = Database.getConnection()) {
-                String sql = "UPDATE account SET score = ? WHERE id = ?";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setInt(1, score);
-                stmt.setInt(2, acc.getId());
-                stmt.executeUpdate();
+                String selectSql = "SELECT score FROM account WHERE id = ?";
+                PreparedStatement selectStmt = conn.prepareStatement(selectSql);
+                selectStmt.setInt(1, acc.getId());
+                ResultSet rs = selectStmt.executeQuery();
 
-                acc.setScore(score);
+                int oldScore = 0;
+                if (rs.next()) {
+                    oldScore = rs.getInt("score");
+                }
+                rs.close();
+                selectStmt.close();
+
+                int scoreToSave = Math.max(oldScore, newScore);
+
+                String updateSql = "UPDATE account SET score = ? WHERE id = ?";
+                PreparedStatement updateStmt = conn.prepareStatement(updateSql);
+                updateStmt.setInt(1, scoreToSave);
+                updateStmt.setInt(2, acc.getId());
+                updateStmt.executeUpdate();
+
+                acc.setScore(scoreToSave);
+                System.out.println("Score saved: " + scoreToSave + " (Old: " + oldScore + ", New: " + newScore + ")");
             } catch (Exception e) {
+                System.err.println("Error saving score: " + e.getMessage());
                 e.printStackTrace();
             }
+        } else {
+            System.err.println("No account found in session to save score.");
         }
     }
 
