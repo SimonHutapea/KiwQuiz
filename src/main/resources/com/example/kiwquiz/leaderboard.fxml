@@ -28,13 +28,12 @@
 
                 <TableView fx:id="leaderboardTable" prefWidth="500.0" maxHeight="400.0">
                     <columns>
-                        <TableColumn fx:id="usernameColumn" text="Nama" prefWidth="250.0" />
-                        <TableColumn fx:id="scoreColumn" text="Skor" prefWidth="250.0" />
+                        <TableColumn fx:id="usernameColumn" text="Nama" prefWidth="250.0" style="-fx-text-fill: black;" />
+                        <TableColumn fx:id="scoreColumn" text="Skor" prefWidth="250.0" style="-fx-text-fill: black;" />
                     </columns>
                     <style>
                         -fx-background-color: #2c2f4a;
-                        -fx-text-background-color: white;
-                        -fx-text-fill: white;
+                        -fx-text-background-color: black;
                         -fx-border-color: #444;
                         -fx-border-radius: 6;
                         -fx-background-radius: 6;
